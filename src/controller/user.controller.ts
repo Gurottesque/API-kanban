@@ -179,7 +179,7 @@ export class UserController {
             return res.status(403).send('Forbidden request: The section doesnt belong to this user')
         // verificar que la seccion de la carta sea del usuario
         
-        const card_section_id = await KanbanDB.getSectionByCardID(card_id)
+        const card_section_id = await KanbanDB.getSectionID(card_id)
         if ('message' in card_section_id) return res.status(card_section_id.code).send(card_section_id.message)
 
         const section_user_id2 = await KanbanDB.getUserID(card_section_id.id)

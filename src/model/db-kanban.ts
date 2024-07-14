@@ -121,11 +121,11 @@ export class KanbanDB {
     const client = await KanbanDB.getClient();
     const data = await client.query(`INSERT INTO section (user_id, title, position) VALUES ($1, $2, $3) RETURNING *`, [user_id, title, position]);
     const section: Section = {
-      id: data.rows[0].id,
-      title: data.rows[0].title,
-      user_id: data.rows[0].user_id,
+      id: data.rows[0][0].id,
+      title: data.rows[0][0].title,
+      user_id: data.rows[0][0].user_id,
       cards: [],
-      position: data.rows[0].position
+      position: data.rows[0][0].position
     };
     return section;
   } catch(e) {

@@ -6,9 +6,9 @@ interface User {
 }
 
 type Username = Pick<User, 'username'>
-type Password = Pick<User, 'passwd'>
+type Password = Pick<User, 'password'>
 type UserID = Pick<User, 'id'>
-type UserLogin = Pick<User, 'username' | 'passwd'>
+type UserLogin = Pick<User, 'username' | 'password'>
 type UserInfo = Pick<User, 'username' | 'email'>
 
 interface ErrorDB {

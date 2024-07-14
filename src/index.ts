@@ -9,12 +9,18 @@ import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 const whitelist = ["http://localhost:3000", "https://kanban-kwc8jf5lg-mateomors-projects.vercel.app"];
-const corsOptions = {
+const publicPath = path.resolve('public');
+
+app.disable('x-powered-by');
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.static(publicPath));
+app.use(cors({
   origin: (origin, callback) => {
       if (!origin) return callback(null, true);
       if (whitelist.includes(origin)) {
@@ -25,14 +31,7 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Acces-Control-Allow-Origin', 'authorization'],
   credentials: true
-};
-const publicPath = path.resolve('public');
-
-app.disable('x-powered-by');
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.static(publicPath));
-app.use(cors(corsOptions));
+}));
 app.get("/", (_req, res) => { res.send("Up") } )
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);

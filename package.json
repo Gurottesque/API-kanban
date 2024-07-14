@@ -6,7 +6,6 @@
 "scripts": {
   "test": "tsx ./src/index.ts",
   "tsc": "tsc",
-  "build": "npm install; tsc",
   "start": "node build/index.js"
 },
 
